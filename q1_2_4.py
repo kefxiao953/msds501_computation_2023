@@ -36,12 +36,30 @@ def create_movie_list(input_file, delimiter, keys, null_value, title_id, informa
 
 
 def return_title_id_original_title_dict(movie_list, title_id):
-    original_title_dict= {}
-    for movie in movie_list:
-        if 'original_title' in movie and title_id in movie:
-            original_title_dict[title_id]=movie['original_title']
+    original_title_dict= dict()
+    num=len(movie_list)
+    key_to_check='original_title'
+    
+    for i in range(num):
+        if key_to_check in movie_list[i]:
+            id=movie_list[i][title_id]
+            original_title_dict[id]= movie_list[i][key_to_check]
+    return original_title_dict
 
-    return  original_title_dict
+def return_information_element_set(**kwargs):
+    movies_list = kwargs['movie_list']
+    key = kwargs['key']
+    info='information'
+    num=len(movies_list)
+    unique_set=set()
+    for i in range(num):
+        # if field information is in the dictionary entry
+        if info in movies_list[i]:
+            for info_dict in movies_list[i][info]:
+                # check if the key is in the info dictionary of the current movie dictionary 
+                if key in info_dict:
+                    unique_set.add(info_dict[key])
+    return unique_set
 
 
 def sort_information(**kwargs):
